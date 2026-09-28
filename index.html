@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tali Henig Fitness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0a0a0a;
+            --lime: #c6f54a;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 5.75rem;
+        }
+
+        body {
+            font-family: 'Heebo', sans-serif;
+            background: var(--ink);
+            color: #f4f4f5;
+            overflow-x: hidden;
+        }
+
+        .font-english {
+            font-family: 'Space Grotesk', 'Heebo', sans-serif;
+        }
+
+        .brand {
+            letter-spacing: 0.16em;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .brand-dot {
+            color: var(--lime);
+        }
+
+        /* Intro: line 1 at 0.3s, line 2 at 1.3s, curtain leaves at 3.2s */
+        #intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            background: #000;
+            pointer-events: none;
+            animation: fadeOutIntro 0.8s ease 3.2s forwards;
+        }
+
+        .intro-copy {
+            width: min(800px, 100%);
+            text-align: center;
+        }
+
+        .intro-line {
+            margin: 0;
+            font-weight: 700;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.25;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        #intro-line-1 {
+            color: #fff;
+        }
+
+        #intro-line-2 {
+            margin-top: 10px;
+            color: #ccff00;
+        }
+
+        @keyframes fadeOutIntro {
+            0% { opacity: 1; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        /* Hero atmosphere */
+        .hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 7.5rem 1.5rem 5.5rem;
+            overflow: hidden;
+        }
+
+        .hero-media,
+        .hero-shade {
+            position: absolute;
+            inset: 0;
+        }
+
+        .hero-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 42%;
+            transform: scale(1.08);
+            filter: saturate(0.35) contrast(1.14) brightness(0.38);
+            animation: heroDrift 26s ease-in-out alternate infinite;
+        }
+
+        @keyframes heroDrift {
+            to { transform: scale(1.15) translate3d(0, -1.6%, 0); }
+        }
+
+        .hero-shade {
+            background:
+                radial-gradient(ellipse at 50% 48%, rgba(10, 10, 10, 0.62) 0%, rgba(10, 10, 10, 0.42) 34%, rgba(10, 10, 10, 0.9) 100%),
+                linear-gradient(to top, #0a0a0a 0%, rgba(10, 10, 10, 0.88) 20%, rgba(10, 10, 10, 0.5) 50%, rgba(10, 10, 10, 0.8) 100%);
+        }
+
+        .hero-shade::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 12%;
+            width: min(680px, 80vw);
+            height: 180px;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse, rgba(198, 245, 74, 0.14), transparent 68%);
+            filter: blur(8px);
+            pointer-events: none;
+        }
+
+        .hero-copy {
+            position: relative;
+            z-index: 1;
+            width: min(920px, 100%);
+            text-align: center;
+        }
+
+        .hero-mark {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin-bottom: 1.35rem;
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.42em;
+            line-height: 1;
+            text-indent: 0.42em;
+        }
+
+        .hero-mark::before,
+        .hero-mark::after {
+            content: "";
+            width: 2.25rem;
+            height: 1px;
+            background: rgba(198, 245, 74, 0.7);
+            text-indent: 0;
+        }
+
+        .hero-title {
+            margin: 0;
+            font-weight: 900;
+            font-size: clamp(2.35rem, 6.2vw, 5.35rem);
+            line-height: 1.16;
+            letter-spacing: -0.025em;
+            text-wrap: balance;
+        }
+
+        .hero-title span {
+            display: block;
+            margin-top: 0.08em;
+            color: transparent;
+            background-image: linear-gradient(90deg, #d9f99d 0%, #c6f54a 42%, #86efac 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero-lead {
+            max-width: 38rem;
+            margin: 1.5rem auto 0;
+            color: #d4d4d8;
+            font-weight: 300;
+            font-size: clamp(1.05rem, 2vw, 1.3rem);
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            margin-top: 2.25rem;
+        }
+
+        @media (min-width: 640px) {
+            .hero-actions {
+                flex-direction: row;
+            }
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 11.5rem;
+            min-height: 3.25rem;
+            padding: 0.9rem 1.7rem;
+            border-radius: 999px;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            transition: transform 0.4s var(--ease), background-color 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease), color 0.4s var(--ease);
+        }
+
+        .btn:focus-visible {
+            outline: 2px solid var(--lime);
+            outline-offset: 3px;
+        }
+
+        .btn-primary {
+            background: var(--lime);
+            color: #111;
+            box-shadow: 0 12px 32px -16px rgba(198, 245, 74, 0.85);
+        }
+
+        .btn-primary:hover {
+            background: #d9f99d;
+            transform: translateY(-2px);
+            box-shadow: 0 0 0 1px rgba(217, 249, 157, 0.45), 0 18px 42px -12px rgba(198, 245, 74, 0.72);
+        }
+
+        .btn-ghost {
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #fff;
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(198, 245, 74, 0.75);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 0 28px -8px rgba(198, 245, 74, 0.55);
+        }
+
+        .btn-nav {
+            min-width: 0;
+            min-height: 2.5rem;
+            padding: 0.55rem 1.15rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .nav-link {
+            position: relative;
+            color: #d4d4d8;
+            transition: color 0.3s var(--ease);
+        }
+
+        .nav-link:hover {
+            color: var(--lime);
+        }
+
+        /* Scroll reveal */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(32px) scale(0.975);
+            transition:
+                opacity 0.95s var(--ease),
+                transform 0.95s var(--ease);
+            transition-delay: var(--reveal-delay, 0ms);
+        }
+
+        [data-reveal].is-in {
+            opacity: 1;
+            transform: none;
+        }
+
+        .stat-num {
+            display: block;
+            direction: ltr;
+            unicode-bidi: isolate;
+            text-align: right;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #c6f54a;
+        }
+
+        .stat-label {
+            display: block;
+            margin-top: 0.5rem;
+            text-align: right;
+            font-size: 0.875rem;
+            line-height: 1.4;
+            color: #a1a1aa;
+        }
+
+        .portrait {
+            filter: grayscale(1) contrast(1.08) brightness(0.92);
+            transform: scale(1.04);
+            transition: filter 0.7s var(--ease), transform 0.9s var(--ease);
+        }
+
+        .group:hover .portrait {
+            filter: grayscale(0.25) contrast(1.05) brightness(1);
+            transform: scale(1);
+        }
+
+        .card {
+            transition: transform 0.45s var(--ease), border-color 0.45s var(--ease), box-shadow 0.45s var(--ease);
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(198, 245, 74, 0.45);
+            box-shadow: 0 24px 50px -28px rgba(198, 245, 74, 0.4);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            #intro-overlay { display: none; }
+            [data-reveal] { opacity: 1; transform: none; transition: none; }
+            .hero-photo,
+            .portrait,
+            .btn,
+            .card { animation: none; transition: none; }
+        }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-zinc-100 selection:bg-lime-300 selection:text-black">
+
+    <div id="intro-overlay">
+        <div class="intro-copy text-center">
+            <h1 id="intro-line-1" class="intro-line font-english">להוציא ממך את המקסימום,</h1>
+            <h1 id="intro-line-2" class="intro-line font-english">בלי פשרות בשטח.</h1>
+        </div>
+    </div>
+
+    <header class="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-black/55 backdrop-blur-xl">
+        <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 md:px-6">
+            <a href="#top" class="brand font-english text-[0.95rem] text-white md:text-xl" dir="ltr">TALI<span class="brand-dot">.</span>HENIG</a>
+            <nav class="hidden items-center gap-8 text-sm font-medium md:flex">
+                <a href="#about" class="nav-link">קצת עלי</a>
+                <a href="#specialties" class="nav-link">תחומי התמחות</a>
+                <a href="#experience" class="nav-link">ניסיון וגישה</a>
+            </nav>
+            <a href="#contact" class="btn btn-primary btn-nav">תיאום אימון</a>
+        </div>
+    </header>
+
+    <section id="top" class="hero">
+        <div class="hero-media" aria-hidden="true">
+            <img
+                src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=2000&auto=format&fit=crop"
+                alt=""
+                class="hero-photo">
+            <div class="hero-shade"></div>
+        </div>
+        <div class="hero-copy">
+            <p class="hero-mark font-english" dir="ltr">TALI HENIG</p>
+            <h1 class="hero-title">
+                להוציא ממך את המקסימום,
+                <span>בלי פשרות בשטח.</span>
+            </h1>
+            <p class="hero-lead">
+                16 שנה בשטח. חיטוב, אורח חיים בריא, וליווי לנשים בהריון ואחרי לידה.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">לתיאום אימון</a>
+                <a href="#about" class="btn btn-ghost">הגישה שלי</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="mx-auto max-w-6xl px-6 py-24 md:py-32">
+        <div class="grid items-center gap-12 md:grid-cols-2 md:gap-16">
+            <div class="group relative" data-reveal>
+                <div class="absolute -inset-1 rounded-[1.4rem] bg-gradient-to-br from-lime-300/50 to-emerald-700/20 opacity-40 blur-md transition duration-500 group-hover:opacity-70"></div>
+                <div class="relative aspect-[4/5] overflow-hidden rounded-3xl border border-white/10 bg-zinc-900">
+                    <img
+                        src="https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=1200&auto=format&fit=crop"
+                        alt="אימון כוח"
+                        class="portrait h-full w-full object-cover">
+                </div>
+            </div>
+            <div data-reveal style="--reveal-delay: 140ms">
+                <p class="font-english mb-3 text-xs font-bold uppercase tracking-[0.28em] text-lime-300" dir="ltr">About</p>
+                <h2 class="text-3xl font-black leading-tight md:text-5xl">היי, אני טלי הניג.</h2>
+                <p id="experience" class="mt-6 text-lg font-light leading-8 text-zinc-300">
+                    מאמנת כושר מוסמכת מווינגייט, הג׳מנסיה ומכללת קיי. בשבילי כושר הוא לא רק מראה. זה כוח, התאוששות, והרגל שנשאר.
+                </p>
+                <div class="mt-8 grid grid-cols-2 gap-x-8 gap-y-4 border-t border-white/10 pt-6">
+                    <div>
+                        <span class="stat-num font-english">16+</span>
+                        <span class="stat-label">שנות ניסיון בשטח</span>
+                    </div>
+                    <div>
+                        <span class="stat-num font-english">3</span>
+                        <span class="stat-label">הסמכות מקצועיות</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="specialties" class="border-y border-white/5 bg-zinc-950 px-6 py-24 md:py-32">
+        <div class="mx-auto max-w-6xl">
+            <div class="mb-14 text-center md:mb-16" data-reveal>
+                <p class="font-english mb-3 text-xs font-bold uppercase tracking-[0.28em] text-lime-300" dir="ltr">Expertise</p>
+                <h2 class="text-3xl font-black md:text-5xl">תחומי התמחות</h2>
+            </div>
+            <div class="grid gap-6 md:grid-cols-3 md:gap-8">
+                <article class="card rounded-3xl border border-white/10 bg-zinc-900/70 p-8" data-reveal>
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-lime-300/10 font-english text-sm font-bold text-lime-300" dir="ltr">01</div>
+                    <h3 class="text-xl font-bold">פונקציונלי וחיטוב</h3>
+                    <p class="mt-3 text-sm font-light leading-7 text-zinc-400">אימון שבנוי לעבודה אמיתית. כוח, צורה, ותוצאה שאפשר להרגיש בשטח.</p>
+                </article>
+                <article class="card rounded-3xl border border-white/10 bg-zinc-900/70 p-8" data-reveal style="--reveal-delay: 120ms">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-lime-300/10 font-english text-sm font-bold text-lime-300" dir="ltr">02</div>
+                    <h3 class="text-xl font-bold">נשים בהריון ואחרי לידה</h3>
+                    <p class="mt-3 text-sm font-light leading-7 text-zinc-400">ליווי בטוח בהריון ואחרי לידה, עם דגש על רצפת האגן וחזרה חכמה לשגרה.</p>
+                </article>
+                <article class="card rounded-3xl border border-white/10 bg-zinc-900/70 p-8" data-reveal style="--reveal-delay: 240ms">
+                    <div class="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-lime-300/10 font-english text-sm font-bold text-lime-300" dir="ltr">03</div>
+                    <h3 class="text-xl font-bold">טאבטה ואימוני קטינים</h3>
+                    <p class="mt-3 text-sm font-light leading-7 text-zinc-400">טאבטה קצרה וחדה, ואימונים לקטינים שבנויים בקצב הנכון.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="px-6 py-20 text-center">
+        <div class="mx-auto max-w-xl">
+            <p class="font-english text-2xl font-bold tracking-[0.18em] text-white md:text-3xl" dir="ltr">TALI HENIG</p>
+            <p class="mx-auto mt-4 max-w-md text-base font-light leading-8 text-zinc-400">אם מתאים לך להתחיל, דברי איתי. נבנה תכנית שיושבת על היום שלך.</p>
+            <p class="font-english mt-12 text-xs tracking-wide text-zinc-600" dir="ltr">© 2026 Tali Henig</p>
+        </div>
+    </footer>
+
+    <script>
+        (function () {
+            var intro = document.getElementById('intro-overlay');
+            var line1 = document.getElementById('intro-line-1');
+            var line2 = document.getElementById('intro-line-2');
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            if (intro && !reduce) {
+                setTimeout(function () {
+                    line1.style.opacity = '1';
+                    line1.style.transform = 'translateY(0)';
+                }, 300);
+
+                setTimeout(function () {
+                    line2.style.opacity = '1';
+                    line2.style.transform = 'translateY(0)';
+                }, 1300);
+
+                intro.addEventListener('animationend', function (event) {
+                    if (event.animationName === 'fadeOutIntro') {
+                        intro.setAttribute('aria-hidden', 'true');
+                    }
+                });
+            }
+
+            var nodes = document.querySelectorAll('[data-reveal]');
+            if (reduce || !('IntersectionObserver' in window)) {
+                nodes.forEach(function (node) { node.classList.add('is-in'); });
+                return;
+            }
+
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-in');
+                    observer.unobserve(entry.target);
+                });
+            }, { threshold: 0.2, rootMargin: '0px 0px -8% 0px' });
+
+            nodes.forEach(function (node) { observer.observe(node); });
+        })();
+    </script>
+</body>
+</html>
